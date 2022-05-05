@@ -51,7 +51,7 @@
     {
       "name": "default",
       "operation-type": "search",
-      "index": "logs-*",
+      "index": "perf_test_1tb",
       "body": {
         "query": {
           "match_all": {}
@@ -61,8 +61,7 @@
     {
       "name": "term",
       "operation-type": "search",
-      "index": "logs-*",
-      "request-timeout": 7200,
+      "index": "perf_test_1tb",
       "body": {
         "query": {
           "term": {
@@ -71,20 +70,12 @@
               }
           }
         }
-      },
-      "detailed-results": true,
-      "assertions": [
-        {
-          "property": "hits",
-          "condition": "==",
-          "value": 10000
-        }
-      ]
+      }
     },
     {
       "name": "range",
       "operation-type": "search",
-      "index": "logs-*",
+      "index": "perf_test_1tb",
       "body": {
         "query": {
           "range": {
@@ -94,15 +85,7 @@
             }
           }
         }
-      },
-      "detailed-results": true,
-      "assertions": [
-        {
-          "property": "hits",
-          "condition": "==",
-          "value": 10000
-        }
-      ]
+      }
     },
     {
       "name": "200s-in-range",
@@ -128,15 +111,7 @@
             ]
           }
         }
-      },
-      "detailed-results": true,
-      "assertions": [
-        {
-          "property": "hits",
-          "condition": "==",
-          "value": 10000
-        }
-      ]
+      }
     },
     {
       "name": "400s-in-range",
@@ -162,27 +137,19 @@
             ]
           }
         }
-      },
-      "detailed-results": true,
-      "assertions": [
-        {
-          "property": "hits",
-          "condition": "==",
-          "value": 20
-        }
-      ]
+      }
     },
     {
       "name": "hourly_agg",
       "operation-type": "search",
-      "index": "logs-*",
+      "index": "perf_test_1tb",
       "body": {
         "size": 0,
         "aggs": {
-          "by_hour": {
+          "by_month":{
             "date_histogram": {
               "field": "@timestamp",
-              "calendar_interval": "hour"
+              "calendar_interval": "month"
             }
           }
         }
@@ -203,7 +170,7 @@
     {
       "name": "desc_sort_timestamp",
       "operation-type": "search",
-      "index": "logs-*",
+      "index": "perf_test_1tb",
       "body": {
         "query": {
           "match_all": {}
@@ -216,7 +183,7 @@
     {
       "name": "desc_sort_with_after_timestamp",
       "operation-type": "search",
-      "index": "logs-*",
+      "index": "logs-231998",
       "body": {
         "track_total_hits": false,
         "query": {
@@ -231,7 +198,7 @@
     {
       "name": "asc_sort_timestamp",
       "operation-type": "search",
-      "index": "logs-*",
+      "index": "perf_test_1tb",
       "body": {
         "query": {
           "match_all": {}
@@ -244,7 +211,7 @@
     {
       "name": "asc_sort_with_after_timestamp",
       "operation-type": "search",
-      "index": "logs-*",
+      "index": "perf_test_1tb",
       "body": {
         "track_total_hits": false,
         "query": {

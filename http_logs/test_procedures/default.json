@@ -502,4 +502,51 @@
           }
         }
       ]
-    }
+    },
+    {
+ "name": "search-queries", 
+"description": "Run all the search queries for performance",
+ "schedule": [
+{
+ "operation": { "operation-type": "create-index", "settings": {{index_settings | default({}) | tojson}}
+}
+},
+{ "operation": "index-append", "warmup-time-period": 240, "clients": {{bulk_indexing_clients | default(8)}}, "ignore-response-error-level": "{{error_level | default('non-fatal')}}"
+},
+{
+"operation": "agg", "warmup-iterations": 100, "iterations": 500, "target-throughput": 10
+},
+{ 
+"operation": "desc_sort_timestamp", "warmup-iterations": 100, "iterations": 500, "target-throughput": 10
+},
+{ "operation": "asc_sort_timestamp", "warmup-iterations": 100, "iterations": 500, "target-throughput": 10
+},
+{ "operation": "default", "warmup-iterations": 100, "iterations": 500, "target-throughput": 10
+},
+{ "operation": "range", "warmup-iterations": 100,"iterations": 500, "target-throughput": 10
+},
+{ "operation": "term", "warmup-iterations": 100, "iterations": 500, "target-throughput": 10
+}
+]
+},
+{
+	 "name": "search-agg",
+	 "description": "Run all the search queries for performance",
+	  "schedule": [
+		  {
+			   "operation": { "operation-type": "create-index", "settings": 
+				   {{index_settings | default({}) | tojson}}
+			   }
+		  },
+		  { "operation": "index-append", "warmup-time-period": 240, "clients": 
+			  {{bulk_indexing_clients | default(8)}}, "ignore-response-error-level": 
+			  "{{error_level | 
+				  default('non-fatal')}}"
+		  },
+		  {
+			  "operation": "hourly_agg", "warmup-iterations": 100, "iterations": 500, 
+
+			  "target-throughput": 10
+		  }]
+}
+
