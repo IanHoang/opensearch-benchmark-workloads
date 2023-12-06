@@ -494,7 +494,7 @@
           }
         ]
       }
-    },    
+    },
     {
       "name": "create-http-log-100-dummy-scripting-search-pipeline",
       "operation-type": "create-search-pipeline",
@@ -510,7 +510,7 @@
           }
         ]
       }
-    },      
+    },
     {
       "name": "create-http-log-all-processors-search-pipeline",
       "operation-type": "create-search-pipeline",
@@ -544,4 +544,25 @@
           }
         ]
       }
+    },
+    {
+      "name": "create-snapshot",
+      "operation-type": "create-snapshot",
+      "repository": "{{ snapshot_repository_name | default('test-repository') }}",
+      "snapshot": "{{ snapshot_name | default('test-snapshot') }}",
+      "body": {
+        "indices": ["logs*,reindexed-logs"],
+        "ignore_unavailable": true,
+        "include_global_state": false,
+        "partial": false,
+        "metadata": {
+          "labels": ["http_logs","1-shard-0-replica"]
+        }
+      }
+    },
+    {
+      "name": "wait-for-snapshot-creation",
+      "operation-type": "wait-for-snapshot-create",
+      "repository": "{{ snapshot_repository_name | default('test-repository') }}",
+      "snapshot": "{{ snapshot_name | default('test-snapshot') }}"
     }

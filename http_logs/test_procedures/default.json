@@ -330,6 +330,12 @@
           {%-if search_clients is defined and search_clients %}
           ,"clients": {{ search_clients | tojson}}
           {%- endif %}
+        },
+        {
+          "operation": "create-snapshot"
+        },
+        {
+          "operation": "wait-for-snapshot-creation"
         }
       ]
     },
