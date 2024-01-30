@@ -551,7 +551,7 @@
       "repository": "{{ snapshot_repository_name | default('test-repository') }}",
       "snapshot": "{{ snapshot_name | default('test-snapshot') }}",
       "body": {
-        "indices": ["logs*,reindexed-logs"],
+        "indices": "logs*,reindexed-logs",
         "ignore_unavailable": true,
         "include_global_state": false,
         "partial": false,
