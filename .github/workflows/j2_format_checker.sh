@@ -2,7 +2,7 @@
 PATH=$1
 
 # Filter out indention errors that are prevalent throughout repository
-j2lint $PATH --extensions json --json | jq '.ERRORS |= map(select(.severity == "HIGH" and (.message | contains("Bad Indentation") | not)))' > output.json
+j2lint $PATH --extensions json --json | jq '.ERRORS |= map(select(.severity == "HIGH" and (.message | contains("Bad Indentation") | not)))' > j2_format_check_output.json
 
 # See ERRORS and WARNINGS
 cat j2_format_check_output.json
